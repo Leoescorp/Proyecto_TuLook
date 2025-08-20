@@ -1,0 +1,44 @@
+
+
+/* ====== Trabaja Negro hijuputa ====== */
+
+
+
+
+/* Esto se queda si o si Homosexual de vereda */
+.boton-subir {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #4b33a8;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boton-subir.mostrar {
+    opacity: 1;
+    visibility: visible;
+}
+
+.boton-subir:hover {
+    background-color: #6c63ff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.icono-subir {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1); /* Convierte el icono a blanco */
+}
