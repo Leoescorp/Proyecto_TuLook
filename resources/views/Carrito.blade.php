@@ -207,7 +207,7 @@
                         <span>Total:</span>
                         <span>${{ number_format($total, 0, ',', '.') }}</span>
                     </div>
-                    <button class="checkout-btn">Proceder al Pago</button>
+                    <a href="{{ route('carrito.pago') }}" class="checkout-btn" style="display: block; text-align: center; text-decoration: none; color: white;">Proceder al Pago</a>
                 </div>
             </div>
         @else

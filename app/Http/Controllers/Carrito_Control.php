@@ -104,7 +104,7 @@ class Carrito_Control extends Controller
         return back()->with('error', 'Producto no encontrado en el carrito');
     }
 
-    // Calcular total del carrito (MÉTODO QUE FALTABA)
+    // Calcular total del carrito
     private function calcularTotal($carrito)
     {
         $total = 0;

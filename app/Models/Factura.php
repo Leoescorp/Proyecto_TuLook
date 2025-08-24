@@ -13,16 +13,11 @@ class Factura extends Model
     protected $fillable = [
         'ID_Usuario',
         'Fecha_Factura',
-        'Monto_Toltal',
-        'Detalles',
+        'Monto_Total',
+        'Direccion_Envio',
         'Estado',
         'ID_Metodo_Pago',
-        'cantidad',
-        'Usuario_Confirmacion',
-        'Fecha_Confirmacion',
-        'Usuario_Anulacion',
-        'Fecha_Anulacion',
-        'Codigo_Acceso'
+        'Codigo_Acceso',
     ];
 
     public function usuario()
