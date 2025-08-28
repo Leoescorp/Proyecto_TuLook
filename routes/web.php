@@ -6,6 +6,10 @@ use App\Http\Controllers\TuLook_Control;
 use App\Http\Controllers\Carrito_Control;
 use App\Http\Controllers\CompraController;
 
+Route::get('/', function () {
+    return redirect()->route('ubicaciones.index'); // o una vista de bienvenida
+});
+
 Route::get('/TuLook', [TuLook_Control::class, 'index'])->name('TuLook');
 
 Route::get('/TuLook/{id}', [TuLook_Control::class, 'show'])->name('TuLook.detalle');
