@@ -4,30 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Producto - TuLook</title>
+    <!-- Incluye el CDN de Tailwind CSS para utilidades responsivas -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vincula la hoja de estilo externa con tus estilos personalizados -->
     <link href="{{ asset('css/TuLook.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .color-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .color-circle {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 1px solid #ddd;
-            display: inline-block;
-        }
-        .variante-color {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 1px solid #ddd;
-            margin-right: 8px;
-        }
-    </style>
 </head>
 <body>
     <nav class="Barra-Navegacion">
@@ -36,7 +17,7 @@
             <a class="Titulo-Principal" href="{{ route('TuLook') }}">TuLook</a>
 
             <a href="{{ route('carrito.ver') }}" class="carrito-link">
-                🛒 Carrito 
+                🛒 Carrito
                 @if(count(Session::get('carrito', [])) > 0)
                     <span class="contador-carrito">
                         {{ count(Session::get('carrito', [])) }}
@@ -86,12 +67,12 @@
                         <select name="color" id="color" required>
                             <option value="">Seleccione un color</option>
                             @foreach($colores as $color)
-                                <option value="{{ $color['id'] }}" data-tallas="{{ json_encode($color['tallas']) }}" data-hex="{{ $color['hex'] }}">
+                                <option value="{{ $color['id'] }}" data-tallas="{{ json_encode($color['tallas'] ?? []) }}" data-hex="{{ $color['hex'] }}">
                                     {{ $color['nombre'] }}
                                 </option>
                             @endforeach
                         </select>
-                        <div id="selected-color-preview" style="margin-top: 5px; display: none;">
+                        <div id="selected-color-preview" style="margin-top: 5px; display: none; display: flex; align-items: center; gap: 8px;">
                             <span class="color-circle" id="color-preview"></span>
                             <span id="color-name"></span>
                         </div>
@@ -103,7 +84,7 @@
                         <select name="talla" id="talla" required>
                             <option value="">Seleccione una talla</option>
                             @foreach($tallas as $talla)
-                                <option value="{{ $talla['id'] }}" data-colores="{{ json_encode($talla['colores']) }}">
+                                <option value="{{ $talla['id'] }}" data-colores="{{ json_encode($talla['colores'] ?? []) }}">
                                     {{ $talla['nombre'] }}
                                 </option>
                             @endforeach
@@ -147,6 +128,7 @@
 
     <script>
     $(document).ready(function() {
+        // Almacena las variables de jQuery en caché para un acceso más rápido
         var $colorSelect = $('#color');
         var $tallaSelect = $('#talla');
         var $cantidadInput = $('#cantidad');
@@ -157,13 +139,27 @@
         var $colorPreview = $('#color-preview');
         var $colorName = $('#color-name');
         var $selectedColorPreview = $('#selected-color-preview');
-        
-        var stockPorCombinacion = <?php echo json_encode($stockPorCombinacion); ?>;
-        var variantes = <?php echo json_encode($variantesParaJS); ?>;
+        var $variantesContainer = $('#variantes-container');
 
-        // Función para debug - agrega esto temporalmente
-        console.log('Variantes cargadas:', variantes);
-        console.log('Total de variantes:', variantes.length);
+        // Solución robusta: pasar los datos de PHP a JavaScript de forma segura
+        // Se utiliza json_encode para evitar el error de la directiva Js::from()
+        var stockPorCombinacion = <?php echo json_encode($stockPorCombinacion ?? []); ?>;
+        var variantes = <?php echo json_encode($variantesParaJS ?? []); ?>;
+
+        var tallasPorColor = {};
+        var coloresPorTalla = {};
+
+        // Función para inicializar los datos de combinaciones
+        function inicializarDatos() {
+            $colorSelect.find('option[value!=""]').each(function() {
+                var colorId = $(this).val();
+                tallasPorColor[colorId] = $(this).data('tallas');
+            });
+            $tallaSelect.find('option[value!=""]').each(function() {
+                var tallaId = $(this).val();
+                coloresPorTalla[tallaId] = $(this).data('colores');
+            });
+        }
 
         function actualizarStockDisponible() {
             var colorId = $colorSelect.val();
@@ -193,6 +189,7 @@
                     $stockEspecifico.removeClass('Disponible').addClass('Agotado');
                     $('#textoStock').text('Agotado');
                     $cantidadInput.attr('max', 0);
+                    $cantidadInput.val(0); // Pone la cantidad a 0 si no hay stock
                     $maxStock.hide();
                     $btnAgregar.prop('disabled', true);
                 }
@@ -204,33 +201,22 @@
             }
         }
 
-        // Función para filtrar y mostrar las variantes disponibles
         function actualizarVariantesDisponibles() {
             var colorId = $colorSelect.val();
             var tallaId = $tallaSelect.val();
-            var $variantesContainer = $('#variantes-container');
             
-            // Limpiar contenedor
             $variantesContainer.empty();
             
-            // Debug
-            console.log('Filtrando - Color:', colorId, 'Talla:', tallaId);
-            
-            // Filtrar variantes según selección
             var variantesFiltradas = variantes.filter(function(variante) {
                 var coincideColor = !colorId || variante.color_id == colorId;
                 var coincideTalla = !tallaId || variante.talla_id == tallaId;
                 return coincideColor && coincideTalla;
             });
             
-            // Debug
-            console.log('Variantes filtradas:', variantesFiltradas.length);
-            
-            // Mostrar variantes filtradas
             if (variantesFiltradas.length > 0) {
                 variantesFiltradas.forEach(function(variante) {
                     var varianteHtml = `
-                        <div class="variante-item" style="border: 1px solid #ccc; padding: 10px; margin: 5px;">
+                        <div class="variante-item" style="border: 1px solid #ccc; padding: 10px; margin: 5px; border-radius: 8px;">
                             <p><strong>Color:</strong> 
                                 <span class="variante-color" style="background-color: ${variante.color_hex || '#ccc'}"></span>
                                 ${variante.color_nombre}
@@ -246,6 +232,7 @@
             }
         }
 
+        // Manejadores de eventos para los selectores
         $colorSelect.change(function() {
             var selectedOption = $(this).find('option:selected');
             var colorHex = selectedOption.data('hex');
@@ -259,44 +246,44 @@
                 $selectedColorPreview.hide();
             }
             
-            var availableTallas = selectedOption.data('tallas') || [];
-            $tallaSelect.find('option').prop('disabled', false);
+            var selectedColorId = $(this).val();
+            var selectedTallaId = $tallaSelect.val();
+
+            // Sincronizar tallas
+            $tallaSelect.find('option[value!=""]').each(function() {
+                var tallaId = $(this).val();
+                var disponible = coloresPorTalla[tallaId] && coloresPorTalla[tallaId].includes(parseInt(selectedColorId));
+                $(this).prop('disabled', !disponible);
+            });
             
-            if (selectedOption.val()) {
-                $tallaSelect.find('option').each(function() {
-                    var tallaId = $(this).val();
-                    if (tallaId && !availableTallas.includes(parseInt(tallaId))) {
-                        $(this).prop('disabled', true);
-                    }
-                });
-                if ($tallaSelect.val() && !availableTallas.includes(parseInt($tallaSelect.val()))) {
-                    $tallaSelect.val('');
-                }
+            // Si la talla seleccionada ya no es válida, la deselecciona
+            if (selectedTallaId && (!coloresPorTalla[selectedTallaId] || !coloresPorTalla[selectedTallaId].includes(parseInt(selectedColorId)))) {
+                $tallaSelect.val('');
             }
             
             actualizarStockDisponible();
-            actualizarVariantesDisponibles(); // Esta línea debe estar aquí
+            actualizarVariantesDisponibles();
         });
 
         $tallaSelect.change(function() {
-            var selectedTalla = $(this).val();
-            var availableColores = $(this).find('option:selected').data('colores') || [];
-            $colorSelect.find('option').prop('disabled', false);
+            var selectedTallaId = $(this).val();
+            var selectedColorId = $colorSelect.val();
+
+            // Sincronizar colores
+            $colorSelect.find('option[value!=""]').each(function() {
+                var colorId = $(this).val();
+                var disponible = tallasPorColor[colorId] && tallasPorColor[colorId].includes(parseInt(selectedTallaId));
+                $(this).prop('disabled', !disponible);
+            });
             
-            if (selectedTalla) {
-                $colorSelect.find('option').each(function() {
-                    var colorId = $(this).val();
-                    if (colorId && !availableColores.includes(parseInt(colorId))) {
-                        $(this).prop('disabled', true);
-                    }
-                });
-                if ($colorSelect.val() && !availableColores.includes(parseInt($colorSelect.val()))) {
-                    $colorSelect.val('');
-                }
+            // Si el color seleccionado ya no es válido, lo deselecciona
+            if (selectedColorId && (!tallasPorColor[selectedColorId] || !tallasPorColor[selectedColorId].includes(parseInt(selectedTallaId)))) {
+                $colorSelect.val('');
+                $selectedColorPreview.hide();
             }
-            
+
             actualizarStockDisponible();
-            actualizarVariantesDisponibles(); // Esta línea debe estar aquí
+            actualizarVariantesDisponibles();
         });
 
         $cantidadInput.change(function() {
@@ -310,8 +297,10 @@
             }
         });
 
-        // Inicializar variantes al cargar la página
+        // Inicializar al cargar la página
+        inicializarDatos();
         actualizarVariantesDisponibles();
+        actualizarStockDisponible();
     });
     </script>
 </body>

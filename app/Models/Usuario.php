@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
-    protected $table = 'usuario';
+    use Notifiable;
+
+    protected $table = 'usuario'; // 👈 nombre exacto de la tabla
     protected $primaryKey = 'ID_Usuario';
-    public $timestamps = false;
+    public $timestamps = false; // 👈 si tu tabla no tiene created_at/updated_at
 
     protected $fillable = [
         'Nombre_Completo',
@@ -19,21 +22,17 @@ class Usuario extends Model
         'Celular',
         'Contrasena',
         'token_recuperacion',
-        'token_expira'
+        'token_expira',
     ];
 
-    public function rol()
-    {
-        return $this->belongsTo(Rol::class, 'ID_Rol');
-    }
+    // 👇 Muy importante: decirle a Laravel cuál es la columna de password
+    protected $hidden = [
+        'Contrasena',
+        'token_recuperacion',
+    ];
 
-    public function tipoDocumento()
+    public function getAuthPassword()
     {
-        return $this->belongsTo(TipoDocumento::class, 'ID_TD');
-    }
-
-    public function facturas()
-    {
-        return $this->hasMany(Factura::class, 'ID_Usuario');
+        return $this->Contrasena;
     }
 }
