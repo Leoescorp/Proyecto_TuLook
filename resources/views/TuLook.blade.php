@@ -66,7 +66,7 @@
 
        <!-- Botones -->
 <button type="submit" class="Boton-Buscar">Buscar</button>
-<a href="{{ route('TuLook') }}" class="Boton-Limpiar">Limpiar</a>
+<a href="{{ route('TuLook') }}"><button class="Boton-Buscar">Limpiar</button></a>
 </form>
 
 </div>
@@ -78,6 +78,7 @@
             @forelse($articulos as $articulo)
                 <div class="Articulo-Contenido">
                     <div class="Articulo">
+                        <br><br>
                         <img src="{{ asset($articulo->Foto) }}" class="Img-Articulo" alt="{{ $articulo->N_Articulo }}">
                         <div class="Descripcion-Articulo">
                             <div class="Categoria-Genero">
@@ -97,7 +98,7 @@
                         </div>
                         <div class="Detalles">
                             <a href="{{ route('TuLook.detalle', $articulo->ID_Articulo) }}" class="Ver-Detalles">Ver Detalles</a>
-                        </div>
+                        </div><br>
                     </div>
                 </div>
             @empty

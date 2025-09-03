@@ -1,3 +1,4 @@
+/* ====== Trabaja Negro hijuputa ====== */
 /* 🎨 Estilos generales */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -182,8 +183,8 @@ body {
 }
 
 .Img-Articulo {
-    width: 100%;
-    height: 220px;
+    width: 275px;
+    height: 375px;
     object-fit: cover;
     border-bottom: 1px solid #eee;
 }
@@ -230,9 +231,29 @@ body {
     font-weight: bold;
 }
 
-/* 🔘 Botón de Detalles *
 
-/* ====== Trabaja Negro hijuputa ====== */
+
+/* 🔘 Botón Ver Detalles */
+.Ver-Detalles {
+    display: inline-block;
+    background: #283593;   /* igual que Buscar */
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;    /* mismo borde redondeado */
+    text-decoration: none; /* quitar subrayado */
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    margin: 10px auto;
+}
+
+.Ver-Detalles:hover {
+    background: #1a237e; /* azul más fuerte */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+
 
 
 

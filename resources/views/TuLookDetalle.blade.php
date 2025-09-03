@@ -6,7 +6,7 @@
     <title>Detalles del Producto - TuLook</title>
     <link href="{{ asset('css/TuLook.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
+  <style>
         .color-option {
             display: flex;
             align-items: center;
@@ -27,6 +27,146 @@
             border: 1px solid #ddd;
             margin-right: 8px;
         }
+
+        /* 🎨 Botón agregar al carrito */
+        .Boton-Agregar-Carrito {
+            background: #283593;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .Boton-Agregar-Carrito:hover {
+            background: #1a237e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .Boton-Agregar-Carrito:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* 🎨 Variantes disponibles en cuadrícula */
+        #variantes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+        }
+        .variante-item {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            background: #fafafa;
+        }
+
+        /* 🎨 Selects */
+        select option:disabled {
+            color: #aaa;
+        }
+
+        /* Contenedor del formulario */
+.Formulario-Compra {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    margin-top: 15px;
+}
+
+/* Stock general y específico */
+.Stock {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.Stock.Disponible {
+    color: #28a745; /* verde */
+}
+.Stock.Agotado {
+    color: #dc3545; /* rojo */
+}
+
+/* 🔹 Cada selector (color, talla, cantidad) */
+.Selector {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.Selector label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+.Selector select,
+.Selector input[type="number"] {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+.Selector select:focus,
+.Selector input[type="number"]:focus {
+    border-color: #512da8; /* morado */
+    box-shadow: 0 0 4px rgba(81, 45, 168, 0.4);
+    outline: none;
+}
+
+/* Vista previa del color */
+#selected-color-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: #555;
+}
+#color-preview {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+/* Nota de máximo stock */
+#maxStock {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Botón de agregar al carrito */
+.Boton-Agregar-Carrito {
+    background: #283593;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+.Boton-Agregar-Carrito:hover {
+    background: #1a237e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.Boton-Agregar-Carrito:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
     </style>
 </head>
 <body>
