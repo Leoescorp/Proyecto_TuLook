@@ -1,7 +1,238 @@
+/* 🎨 Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8f9fa;
+    color: #333;
+}
 
+/* 🔹 Barra de Navegación */
+.Barra-Navegacion {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 3px solid #283593; /* azul oscuro */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.Navegacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 24px;
+}
+
+.Navegacion img {
+    height: 80px; /* 🔹 imagen más grande */
+    border-radius: 10px;
+}
+
+.Titulo-Principal {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #512da8; /* morado clarito */
+    margin-left: 14px;
+}
+
+.carrito-link {
+    font-size: 1rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.carrito-link:hover {
+    color: #283593; /* azul oscuro */
+}
+
+.contador-carrito {
+    background: #512da8; /* morado */
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    right: -12px;
+}
+
+.Barra-Busqueda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 2px solid #283593;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    width: fit-content;   /* 🔹 ahora se ajusta al contenido */
+    max-width: 100%;      /* 🔹 evita que se desborde en pantallas pequeñas */
+    flex-wrap: wrap;      /* 🔹 sigue siendo responsive */
+}
+
+
+
+/* Input */
+.Barra-Busqueda input {
+    flex: 1;
+    min-width: 260px; /* ⬅️ antes 220px */
+    padding: 12px;     /* ⬅️ un poco más alto */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+
+
+.Barra-Busqueda input:focus {
+    border-color: #512da8; /* morado clarito */
+    box-shadow: 0 0 4px rgba(81,45,168,0.4);
+}
+
+/* Selects */
+.Barra-Busqueda select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: 0.3s;
+    min-width: 150px;
+}
+
+.Barra-Busqueda select:focus {
+    border-color: #283593; /* azul oscuro */
+}
+
+/* Botones */
+.Barra-Busqueda button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.Boton-Buscar {
+    background: #283593; /* azul oscuro */
+    color: #fff;
+}
+
+.Boton-Buscar:hover {
+    background: #1a237e; /* azul más fuerte */
+}
+
+.Boton-Limpiar {
+    background-color: #253ca6; /* mismo color */
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* quita subrayado en <a> */
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.Boton-Limpiar:hover {
+    background: #4527a0; /* morado más oscuro */
+}
+
+/* 📦 Productos en cuadrícula */
+.Articulos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.Articulo-Contenido {
+    display: flex;
+    justify-content: center;
+}
+
+.Articulo {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+}
+
+.Articulo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.Img-Articulo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.Descripcion-Articulo {
+    padding: 12px;
+}
+
+.Categoria-Genero {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Nombre-Articulo {
+    font-size: 1.1rem;
+    margin: 6px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.SubCategoria-Articulo {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.Precio-Articulo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #283593; /* azul oscuro */
+    margin-top: 8px;
+}
+
+.text-success {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* 🔘 Botón de Detalles *
 
 /* ====== Trabaja Negro hijuputa ====== */
-
 
 
 

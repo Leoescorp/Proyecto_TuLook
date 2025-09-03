@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TuLook</title>
-    <link href="{{ asset('css/TuLook.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/TuLook.css?v=1') }}" rel="stylesheet">
 </head>
 <body>
     <nav class="Barra-Navegacion">
@@ -24,58 +24,54 @@
     </nav>
 
     <div class="Tienda">
-        <h1 class="Titulo">Productos Disponibles</h1>
+<center> <h1 class="Titulo">Productos Disponibles</h1></center>
         
-        <!--Buscar productos-->
-        <div class="Buscar-Articulo">
-            <form method="GET" action="{{ route('TuLook') }}">
-                <input type="text" name="buscar" value="{{ request('buscar') }}" placeholder="Buscar productos..." class="Buscador">
-                <button type="submit" class="Boton-Buscar">Buscar</button>
-                    <a href="{{ route('TuLook') }}" class="Boton-Limpiar">Limpiar</a>
-            </form>
-        </div>
 
-        <!-- Filtros -->
-        <div class="Filtro">
-            <div class="Filtracion">
-                <form method="GET" action="{{ route('TuLook') }}" class="Formulario-Filtro">
-                    <div class="Seleccion">
-                        <select name="categoria" class="Form_Seleccion">
-                            <option value="">Todas las categorías</option>
-                            @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->N_Categoria }}" {{ request('categoria') == $categoria->N_Categoria ? 'Selecionado' : '' }}>
-                                    {{ $categoria->N_Categoria }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="Seleccion">
-                        <select name="subcategoria" class="Form_Seleccion">
-                            <option value="">Todas las subcategorías</option>
-                            @foreach($subcategorias as $subcategoria)
-                                <option value="{{ $subcategoria->SubCategoria }}" {{ request('subcategoria') == $subcategoria->SubCategoria ? 'Selecionado' : '' }}>
-                                    {{ $subcategoria->SubCategoria }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="Seleccion">
-                        <select name="genero" class="Form_Seleccion">
-                            <option value="">Todos los géneros</option>
-                            @foreach($generos as $genero)
-                                <option value="{{ $genero->N_Genero }}" {{ request('genero') == $genero->N_Genero ? 'Selecionado' : '' }}>
-                                    {{ $genero->N_Genero }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="Seleccion">
-                        <button type="submit" class="Boton-Filtrar">Filtrar</button>
-                        <a href="{{ route('TuLook') }}" class="Boton-Limpiar">Limpiar</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+ <!-- Filtros -->
+<div class="Barra-Busqueda">
+    <form method="GET" action="{{ route('TuLook') }}" class="Formulario-Filtro">
+
+        <!-- Buscador -->
+        <input type="text" name="buscar" placeholder="Buscar productos..." value="{{ request('buscar') }}">
+
+        <!-- Géneros -->
+        <select name="genero">
+            <option value="">Todos los géneros</option>
+            @foreach($generos as $genero)
+                <option value="{{ $genero->N_Genero }}" {{ request('genero') == $genero->N_Genero ? 'selected' : '' }}>
+                    {{ $genero->N_Genero }}
+                </option>
+            @endforeach
+        </select>
+
+        <!-- Categorías -->
+        <select name="categoria">
+            <option value="">Todas las categorías</option>
+            @foreach($categorias as $categoria)
+                <option value="{{ $categoria->N_Categoria }}" {{ request('categoria') == $categoria->N_Categoria ? 'selected' : '' }}>
+                    {{ $categoria->N_Categoria }}
+                </option>
+            @endforeach
+        </select>
+
+        <!-- Subcategorías -->
+        <select name="subcategoria">
+            <option value="">Todas las subcategorías</option>
+            @foreach($subcategorias as $subcategoria)
+                <option value="{{ $subcategoria->SubCategoria }}" {{ request('subcategoria') == $subcategoria->SubCategoria ? 'selected' : '' }}>
+                    {{ $subcategoria->SubCategoria }}
+                </option>
+            @endforeach
+        </select>
+
+       <!-- Botones -->
+<button type="submit" class="Boton-Buscar">Buscar</button>
+<a href="{{ route('TuLook') }}" class="Boton-Limpiar">Limpiar</a>
+</form>
+
+</div>
+
+
 
         <!-- Listado de Productos -->
         <div class="Articulos">
