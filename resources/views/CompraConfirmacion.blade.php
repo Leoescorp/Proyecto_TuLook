@@ -116,7 +116,7 @@
         </div>
         
         <div class="acciones">
-            <a href="{{ route('seguimiento.pedido', ['codigo' => $factura->Codigo_Acceso]) }}" class="btn-seguimiento">Seguir mi pedido</a>
+            <a href="{{ route('compra.seguimiento', $factura->Codigo_Acceso) }}" class="btn-seguimiento">Ver seguimiento</a>
             <a href="{{ route('TuLook') }}" class="btn-inicio">Seguir comprando</a>
         </div>
     </div>

@@ -150,7 +150,7 @@
             <h2>Información del pedido</h2>
             <div class="info-item">
                 <span>Fecha de compra:</span>
-                <span>{{ $factura->Fecha_Factura->format('d/m/Y H:i') }}</span>
+<span>{{ \Carbon\Carbon::parse($factura->Fecha_Factura)->format('d/m/Y H:i') }}</span>
             </div>
             <div class="info-item">
                 <span>Estado actual:</span>
