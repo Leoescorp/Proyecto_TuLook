@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Producto - TuLook</title>
-    <!-- Incluye el CDN de Tailwind CSS para utilidades responsivas -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Vincula la hoja de estilo externa con tus estilos personalizados -->
-    <link href="{{ asset('css/TuLook.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
